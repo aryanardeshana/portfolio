@@ -1,12 +1,8 @@
 import { motion } from "framer-motion";
-import {
-    FaCode,
-    FaLaptopCode,
-    FaGraduationCap,
-    FaBriefcase,
-    FaUser,
-    FaLocationDot,
-} from "react-icons/fa6";
+import { FaCode, FaLaptopCode, FaGraduationCap, FaBriefcase, FaUser, FaLocationDot, FaShieldHalved, } from "react-icons/fa6";
+import { SiMongodb } from "react-icons/si";
+import { MdApi } from "react-icons/md";
+import { FaTools } from "react-icons/fa";
 
 const infoItems = [
     { label: "Name", value: "Aryan Ardeshana", icon: <FaUser /> },
@@ -19,12 +15,12 @@ const highlightCards = [
     {
         icon: <FaLaptopCode />,
         title: "Web Development",
-        desc: "Responsive modern web applications using React.",
+        desc: "Creating fast, secure and scalable full-stack web solutions.",
     },
     {
-        icon: <FaCode />,
-        title: "Backend",
-        desc: "Node.js, Express, PHP & REST APIs.",
+        icon: <FaTools />,
+        title: "Core Skills",
+        desc: "Frontend, Backend, Database, REST APIs & JWT Authentication.",
     },
     {
         icon: <FaGraduationCap />,

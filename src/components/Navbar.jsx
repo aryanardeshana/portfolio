@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { FaBars, FaXmark } from "react-icons/fa6";
+
+import logo from "../assets/images/logo.png";
 
 const navLinks = [
     { id: "home", label: "Home" },
@@ -26,6 +28,10 @@ function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [activeId, setActiveId] = useState("home");
+
+    // Smooth scroll-progress bar shown along the bottom edge of the navbar
+    const { scrollYProgress } = useScroll();
+    const scaleX = useSpring(scrollYProgress, { stiffness: 300, damping: 40 });
 
     // Shrink & strengthen the navbar background once the page is scrolled
     useEffect(() => {
@@ -54,13 +60,23 @@ function Navbar() {
         return () => observer.disconnect();
     }, []);
 
+    // Close mobile menu with the Escape key
+    useEffect(() => {
+        if (!menuOpen) return;
+        const onKeyDown = (e) => {
+            if (e.key === "Escape") setMenuOpen(false);
+        };
+        window.addEventListener("keydown", onKeyDown);
+        return () => window.removeEventListener("keydown", onKeyDown);
+    }, [menuOpen]);
+
     return (
         <nav
             className={`fixed top-0 left-0 w-full bg-background/90 backdrop-blur-md border-b border-border z-50 transition-all duration-300 ${scrolled ? "shadow-card" : "shadow-none"
                 }`}
         >
             <div
-                className={`max-w-7xl mx-auto flex items-center justify-between px-6 transition-all duration-300 ${scrolled ? "py-3" : "py-5"
+                className={`relative z-20 max-w-7xl mx-auto flex items-center justify-between px-6 transition-all duration-300 ${scrolled ? "py-3" : "py-5"
                     }`}
             >
 
@@ -69,10 +85,13 @@ function Navbar() {
                     href="#home"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="text-3xl font-bold cursor-pointer"
+                    className="cursor-pointer shrink-0"
                 >
-                    <span className="text-primary">Aryan</span>
-                    <span className="text-text">.</span>
+                    <img
+                        src={logo}
+                        alt="Aryan Ardeshana - Full Stack Developer"
+                        className="h-14 md:h-16 w-auto object-contain -my-3 md:-my-4"
+                    />
                 </motion.a>
 
                 {/* Desktop Menu */}
@@ -81,13 +100,14 @@ function Navbar() {
                         const isActive = activeId === id;
                         return (
                             <li key={id} className="relative py-1">
-                                <a
+                                <motion.a
                                     href={`#${id}`}
-                                    className={`transition-colors duration-300 hover:text-primary ${isActive ? "text-primary" : ""
+                                    whileHover={{ y: -2 }}
+                                    className={`inline-block transition-colors duration-300 hover:text-primary ${isActive ? "text-primary" : ""
                                         }`}
                                 >
                                     {label}
-                                </a>
+                                </motion.a>
                                 {isActive && (
                                     <motion.span
                                         layoutId="nav-underline"
@@ -116,6 +136,7 @@ function Navbar() {
                     className="md:hidden relative w-8 h-8 text-text transition-colors duration-300 hover:text-primary"
                     onClick={() => setMenuOpen(!menuOpen)}
                     aria-label="Toggle menu"
+                    aria-expanded={menuOpen}
                 >
                     <AnimatePresence mode="wait" initial={false}>
                         <motion.span
@@ -132,6 +153,26 @@ function Navbar() {
                 </button>
             </div>
 
+            {/* Scroll progress bar */}
+            <motion.div
+                className="h-[3px] bg-primary origin-left"
+                style={{ scaleX }}
+            />
+
+            {/* Backdrop - click outside the mobile menu to close it */}
+            <AnimatePresence>
+                {menuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        onClick={() => setMenuOpen(false)}
+                        className="md:hidden fixed inset-0 bg-black/40"
+                    />
+                )}
+            </AnimatePresence>
+
             {/* Mobile Menu */}
             <AnimatePresence>
                 {menuOpen && (
@@ -140,7 +181,7 @@ function Navbar() {
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="md:hidden bg-surface border-t border-border overflow-hidden"
+                        className="md:hidden relative bg-surface border-t border-border overflow-hidden"
                     >
                         <motion.ul
                             variants={mobileList}

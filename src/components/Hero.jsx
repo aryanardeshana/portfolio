@@ -1,36 +1,19 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-    FaGithub,
-    FaLinkedin,
-    FaEnvelope,
-    FaDownload,
-} from "react-icons/fa6";
-import {
-    SiHtml5,
-    SiCss,
-    SiJavascript,
-    SiReact,
-    SiTailwindcss,
-    SiNodedotjs,
-    SiExpress,
-    SiPhp,
-    SiMongodb,
-    SiMysql,
-    SiGit,
-    SiGithub,
-    SiPostman,
-} from "react-icons/si";
+import { FaGithub, FaLinkedin, FaEnvelope, FaDownload } from "react-icons/fa6";
+import { SiHtml5, SiCss, SiJavascript, SiReact, SiTailwindcss, SiNodedotjs, SiExpress, SiPhp, SiMongodb, SiMysql, SiGit, SiGithub, SiPostman } from "react-icons/si";
 import { MdApi } from "react-icons/md";
-
 import profile from "../assets/images/profile.jpg";
 import resume from "../assets/pdf/Resume.pdf";
 
 const roles = [
     "Full Stack Developer",
     "MERN Stack Developer",
-    "React Developer",
+    "React.js Developer",
+    "Web Developer",
     "Front End Developer",
+    "Node.js Developer",
+    "PHP Developer",
 ];
 
 // Full tech stack - single outer ring, floating outside the photo border
@@ -63,11 +46,6 @@ const item = {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
-/**
- * Tracks whether the viewport is at/above the `md` breakpoint (768px),
- * so the orbit radius can shrink to fit small phone screens instead of
- * spilling icons over the header/nav.
- */
 function useIsDesktop() {
     const [isDesktop, setIsDesktop] = useState(
         typeof window !== "undefined" ? window.innerWidth >= 768 : true
@@ -83,17 +61,6 @@ function useIsDesktop() {
     return isDesktop;
 }
 
-/**
- * Renders a ring of orbiting tech icons that floats OUTSIDE the photo
- * border - never over the photo itself.
- *
- * Structure (3 levels, kept separate on purpose):
- * 1. positioner  - places the icon at its angle + radius on the circle (static)
- * 2. centerer    - pulls the icon back by half its own size so it's centered
- *                  on that point (static, plain CSS - not touched by Framer)
- * 3. motion.span - ONLY handles the counter-rotation animation, so it never
- *                  overwrites the centering transform above it
- */
 function OrbitRing({ items, radius, duration }) {
     const angleStep = 360 / items.length;
 
@@ -194,11 +161,9 @@ function Hero() {
                         </motion.div>
 
                         <motion.p variants={item} className="mt-8 text-text-muted leading-8 text-lg max-w-xl">
-                            Passionate Full Stack Developer with internship experience
-                            building responsive websites, REST APIs and Admin Panels
-                            using React, Node.js, Express, MongoDB, PHP and MySQL.
-                            I love creating fast, modern and user-friendly web
-                            applications.
+                            Full Stack Developer with hands-on internship experience in MERN stack, PHP, and MySQL
+                            and Tailwind CSS. Skilled in building responsive web applications, secure APIs, and admin
+                            panels. Eager to contribute and grow in a professional development environment.
                         </motion.p>
 
                         {/* Buttons */}

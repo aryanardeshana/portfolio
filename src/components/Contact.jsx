@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-    FaLocationDot,
-    FaEnvelope,
-    FaPhone,
-    FaPaperPlane,
-    FaCheck,
-    FaTriangleExclamation,
-} from "react-icons/fa6";
+import { FaLocationDot, FaEnvelope, FaPhone, FaPaperPlane, FaCheck, FaTriangleExclamation, FaGlobe, FaReact, FaBolt, FaPhp, } from "react-icons/fa6";
+import { SiMongodb } from "react-icons/si";
 
 const contactInfo = [
     {
@@ -18,14 +12,16 @@ const contactInfo = [
     {
         icon: <FaEnvelope />,
         title: "Email",
-        value: "your@email.com",
+        value: "aryanpatel5423@gmail.com",
     },
     {
         icon: <FaPhone />,
         title: "Phone",
-        value: "+91 XXXXX XXXXX",
+        value: "+91 63518 84365",
     },
 ];
+
+const techStack = ["Web Developer", "MERN Stack Developer", "Full-Stack Developer", "Frontend Developer",];
 
 const infoVariants = {
     hidden: { opacity: 0, x: -24 },
@@ -40,12 +36,12 @@ const infoVariants = {
 const LIMITS = {
     name: { min: 2, max: 50 },
     email: { max: 100 },
-    subject: { min: 3, max: 80 },
-    message: { min: 10, max: 500 },
+    subject: { max: 100 },
+    message: { max: 2000 },
 };
 
 const NAME_PATTERN = /^[A-Za-z\s'-]+$/;
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_PATTERN = /^(?!.*\.\.)(?!\.)(?!.*\.$)[A-Za-z0-9._%+-]{1,64}@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$/;
 
 const fields = [
     { name: "name", label: "Name", type: "text", placeholder: "Enter your name", maxLength: LIMITS.name.max },
@@ -66,20 +62,32 @@ function validateField(name, rawValue) {
 
         case "email":
             if (!value) return "Email is required.";
-            if (value.length > LIMITS.email.max) return `Email must be under ${LIMITS.email.max} characters.`;
-            if (!EMAIL_PATTERN.test(value)) return "Enter a valid email address.";
+
+            if (value.length > LIMITS.email.max)
+                return `Email must be under ${LIMITS.email.max} characters.`;
+
+            if (value.includes(" "))
+                return "Email cannot contain spaces.";
+
+            if (!EMAIL_PATTERN.test(value))
+                return "Please enter a valid email address.";
+
             return "";
 
         case "subject":
             if (!value) return "Subject is required.";
-            if (value.length < LIMITS.subject.min) return `Subject must be at least ${LIMITS.subject.min} characters.`;
-            if (value.length > LIMITS.subject.max) return `Subject must be under ${LIMITS.subject.max} characters.`;
+
+            if (value.length > LIMITS.subject.max)
+                return `Subject must be under ${LIMITS.subject.max} characters.`;
+
             return "";
 
         case "message":
             if (!value) return "Message is required.";
-            if (value.length < LIMITS.message.min) return `Message must be at least ${LIMITS.message.min} characters.`;
-            if (value.length > LIMITS.message.max) return `Message must be under ${LIMITS.message.max} characters.`;
+
+            if (value.length > LIMITS.message.max)
+                return `Message must be under ${LIMITS.message.max} characters.`;
+
             return "";
 
         default:
@@ -177,7 +185,7 @@ function Contact() {
                     </h2>
 
                     <p className="text-text-muted mt-5 max-w-2xl mx-auto">
-                        Have a project in mind or looking for a React / MERN Stack
+                        Have a project in mind or looking for a Full-Stack
                         Developer? Feel free to contact me.
                     </p>
                 </motion.div>
@@ -189,7 +197,7 @@ function Contact() {
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.7 }}
                         viewport={{ once: true }}
-                        className="bg-surface rounded-2xl shadow-card border border-border p-8"
+                        className="bg-surface rounded-2xl shadow-card border border-border p-8 flex flex-col h-full"
                     >
                         <h3 className="text-3xl font-bold mb-8">
                             Let's Connect
@@ -229,13 +237,98 @@ function Contact() {
                             ))}
                         </div>
 
+                        <>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                transition={{ delay: 0.2, duration: 0.5 }}
+                                viewport={{ once: true }}
+                                className="mt-10 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-border text-sm text-text-muted"
+                            >
+                                <span className="relative flex h-2.5 w-2.5">
+                                    <motion.span
+                                        className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"
+                                        animate={{ scale: [1, 2], opacity: [0.75, 0] }}
+                                        transition={{ duration: 1.6, repeat: Infinity, ease: "easeOut" }}
+                                    />
+
+                                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary" />
+                                </span>
+
+                                Available for new opportunities
+                            </motion.div>
+
+                            <div className="flex flex-wrap gap-2 mt-5">
+                                {techStack.map((tech, i) => (
+                                    <motion.span
+                                        key={tech}
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        whileInView={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: 0.3 + i * 0.07, duration: 0.3 }}
+                                        viewport={{ once: true }}
+                                        whileHover={{ y: -2, scale: 1.05 }}
+                                        className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary border border-primary/20"
+                                    >
+                                        {tech}
+                                    </motion.span>
+                                ))}
+                            </div>
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5, duration: 0.5 }}
+                                viewport={{ once: true }}
+                                className="mt-8"
+                            >
+                                <h4 className="text-lg font-semibold text-primary mb-4">
+                                    What I Can Help You With
+                                </h4>
+
+                                <div className="grid grid-cols-2 gap-3">
+
+                                    <div className="bg-card border border-border rounded-lg p-3 text-sm flex items-center gap-2">
+                                        <FaGlobe className="text-primary text-lg" />
+                                        <span>Web Development</span>
+                                    </div>
+
+                                    <div className="bg-card border border-border rounded-lg p-3 text-sm flex items-center gap-2">
+                                        <FaReact className="text-primary text-lg" />
+                                        <span>React Development</span>
+                                    </div>
+
+                                    <div className="bg-card border border-border rounded-lg p-3 text-sm flex items-center gap-2">
+                                        <SiMongodb className="text-primary text-lg" />
+                                        <span>MERN Stack</span>
+                                    </div>
+
+                                    <div className="bg-card border border-border rounded-lg p-3 text-sm flex items-center gap-2">
+                                        <FaPhp className="text-primary text-lg" />
+                                        <span>PHP Development</span>
+                                    </div>
+                                </div>
+                                <div className="mt-6 p-4 rounded-xl bg-card border border-border">
+                                    <p className="text-sm text-text-muted flex items-center gap-2">
+                                        <FaBolt className="text-primary" />
+                                        Usually replies within
+                                        <span className="text-primary font-semibold">5 hours</span>
+                                    </p>
+                                </div>
+                            </motion.div>
+                        </>
+
                         {/* Decorative pulse rail, echoes the Skills section language */}
-                        <div className="relative mt-10 h-px bg-border overflow-hidden">
-                            <motion.span
-                                className="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-primary"
-                                animate={{ left: ["0%", "100%"] }}
-                                transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
-                            />
+                        <div className="mt-auto pt-10">
+                            <div className="relative h-px bg-border overflow-hidden">
+                                <motion.span
+                                    className="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-primary"
+                                    animate={{ left: ["0%", "100%"] }}
+                                    transition={{
+                                        duration: 2.5,
+                                        repeat: Infinity,
+                                        ease: "linear",
+                                    }}
+                                />
+                            </div>
                         </div>
                     </motion.div>
 
@@ -247,7 +340,7 @@ function Contact() {
                         viewport={{ once: true }}
                         onSubmit={handleSubmit}
                         noValidate
-                        className="relative bg-surface rounded-2xl shadow-card border border-border p-8 space-y-6"
+                        className="relative bg-surface rounded-2xl shadow-card border border-border p-8 space-y-6 flex flex-col h-full"
                     >
                         {fields.map((field) => {
                             const hasError = touched[field.name] && errors[field.name];
@@ -340,7 +433,7 @@ function Contact() {
                                 onChange={handleChange}
                                 onFocus={() => setFocused("message")}
                                 onBlur={handleBlur}
-                                placeholder="Write your message... (min 10 characters)"
+                                placeholder="Write your message..."
                                 maxLength={LIMITS.message.max}
                                 aria-invalid={Boolean(touched.message && errors.message)}
                                 aria-describedby={touched.message && errors.message ? "message-error" : undefined}
@@ -433,6 +526,21 @@ function Contact() {
                                 )}
                             </AnimatePresence>
                         </motion.button>
+
+                        {/* Bottom Decorative Line */}
+                        <div className="mt-auto pt-10">
+                            <div className="relative h-px bg-border overflow-hidden">
+                                <motion.span
+                                    className="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-primary"
+                                    animate={{ left: ["0%", "100%"] }}
+                                    transition={{
+                                        duration: 2.5,
+                                        repeat: Infinity,
+                                        ease: "linear",
+                                    }}
+                                />
+                            </div>
+                        </div>
                     </motion.form>
                 </div>
             </div>
