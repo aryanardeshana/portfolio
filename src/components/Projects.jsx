@@ -8,7 +8,7 @@ const projects = [
         image: "https://placehold.co/600x400/111827/06b6d4?text=Online+Clipboard",
         description:
             "A secure online clipboard application for saving and accessing notes from anywhere.",
-        tech: ["React", "Node.js", "MongoDB", "REST API"],
+        tech: ["React", "Node.js", "MongoDB","Express.js", "REST API"],
         live: "https://online-clipboard.in/",
     },
     {
@@ -16,7 +16,7 @@ const projects = [
         image: "https://placehold.co/600x400/111827/06b6d4?text=King+Technology",
         description:
             "A responsive corporate website with modern UI and admin management features.",
-        tech: ["React", "PHP", "MySQL"],
+        tech: ["Tailwind CSS","JavaScript", "PHP", "MySQL"],
         live: "https://kingtechnology.in/",
     },
     {
@@ -24,7 +24,7 @@ const projects = [
         image: "https://placehold.co/600x400/111827/06b6d4?text=JR+Building",
         description:
             "Construction company website with responsive design and service showcase.",
-        tech: ["React", "PHP", "MySQL"],
+        tech: ["React.js","Node.js","Express.js"],
         live: "https://jrbuilding.in/",
     },
     {
@@ -32,7 +32,7 @@ const projects = [
         image: "https://placehold.co/600x400/111827/06b6d4?text=RSS+Pharma",
         description:
             "Professional pharmaceutical company website with responsive layout.",
-        tech: ["React", "PHP", "MySQL"],
+        tech: ["Tailwind CSS","JavaScript", "PHP", "MySQL"],
         live: "https://rsspharma.in/",
     },
     {
@@ -40,7 +40,7 @@ const projects = [
         image: "https://placehold.co/600x400/111827/06b6d4?text=King+Textile",
         description:
             "Modern textile business website showcasing products and company profile.",
-        tech: ["React", "PHP", "MySQL"],
+        tech: ["Tailwind CSS","JavaScript", "PHP", "MySQL"],
         live: "https://kingtextile.in/",
     },
     {
@@ -48,7 +48,7 @@ const projects = [
         image: "https://placehold.co/600x400/111827/06b6d4?text=Madhav+Constructions",
         description:
             "Construction company website with modern UI, responsive design, services, contact forms and admin panel.",
-        tech: ["React", "PHP", "MySQL", "REST API"],
+        tech: ["React.js","Node.js","Express.js"],
         live: "http://madhavconstructions.com/",
     },
 ];

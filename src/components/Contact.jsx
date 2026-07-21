@@ -123,7 +123,7 @@ function Contact() {
         setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (status !== "idle") return;
 
@@ -137,15 +137,43 @@ function Contact() {
         if (hasErrors) return;
 
         setStatus("sending");
-        setTimeout(() => {
-            setStatus("sent");
-            setTimeout(() => {
+
+        try {
+            const response = await fetch("http://localhost:5000/api/contact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(values),
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                setStatus("sent");
+
+                setTimeout(() => {
+                    setStatus("idle");
+                    setValues({
+                        name: "",
+                        email: "",
+                        subject: "",
+                        message: "",
+                    });
+                    setTouched({});
+                    setErrors({});
+                }, 1800);
+
+            } else {
+                alert(data.message);
                 setStatus("idle");
-                setValues({ name: "", email: "", subject: "", message: "" });
-                setTouched({});
-                setErrors({});
-            }, 1800);
-        }, 1200);
+            }
+
+        } catch (error) {
+            console.error(error);
+            alert("Failed to send message");
+            setStatus("idle");
+        }
     };
 
     return (
