@@ -1,7 +1,10 @@
 const express = require("express");
 const nodemailer = require("nodemailer");
 const cors = require("cors");
+const dns = require("dns");
 require("dotenv").config();
+
+dns.setDefaultResultOrder("ipv4first");
 
 const app = express();
 
@@ -10,8 +13,8 @@ app.use(express.json());
 
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
+    port: 465,
+    secure: true,
     family: 4,
     auth: {
         user: process.env.EMAIL_USER,
