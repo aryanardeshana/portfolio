@@ -139,7 +139,7 @@ function Contact() {
         setStatus("sending");
 
         try {
-            const response = await fetch("https://portfolio-backend-oj8r.onrender.com/api/contact", {
+            const response = await fetch("https://portfolio-backend-oj8r.onrender.com/api/Contact", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
