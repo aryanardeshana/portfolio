@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { Resend } = require("resend");
+const nodemailer = require("nodemailer");
 require("dotenv").config();
 
 const app = express();
@@ -8,19 +8,26 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+    },
+});
 
 app.post("/api/contact", async (req, res) => {
     try {
         const { name, email, subject, message } = req.body;
 
-        const { data, error } = await resend.emails.send({
-            from: "onboarding@resend.dev",
+        await transporter.sendMail({
+            from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
             to: process.env.EMAIL_USER,
             replyTo: email,
             subject: `Portfolio Contact - ${subject}`,
             html: `
                 <h2>New Contact Message</h2>
+                <hr>
                 <p><strong>Name:</strong> ${name}</p>
                 <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Subject:</strong> ${subject}</p>
@@ -29,28 +36,17 @@ app.post("/api/contact", async (req, res) => {
             `,
         });
 
-        if (error) {
-            console.error("Resend Error:", error);
-
-            return res.status(500).json({
-                success: false,
-                message: error.message,
-            });
-        }
-
-        console.log("Email Sent:", data);
-
         res.status(200).json({
             success: true,
             message: "Message Sent Successfully",
         });
 
     } catch (err) {
-        console.error("Server Error:", err);
+        console.error("Email Error:", err);
 
         res.status(500).json({
             success: false,
-            message: "Internal Server Error",
+            message: "Failed to send email",
         });
     }
 });
