@@ -11,8 +11,8 @@ app.use(express.json());
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-        user: process.env.EMAIL,
-        pass: process.env.APP_PASSWORD,
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
     },
 });
 
@@ -21,8 +21,8 @@ app.post("/api/contact", async (req, res) => {
         const { name, email, subject, message } = req.body;
 
         await transporter.sendMail({
-            from: process.env.EMAIL,
-            to: process.env.EMAIL,
+            from: process.env.EMAIL_USER,
+            to: process.env.EMAIL_USER,
             replyTo: email,
             subject: `Portfolio Contact - ${subject}`,
             html: `
@@ -49,6 +49,8 @@ app.post("/api/contact", async (req, res) => {
     }
 });
 
-app.listen(5000, () => {
-    console.log("Server Running on Port 5000");
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+    console.log(`Server Running on Port ${PORT}`);
 });
