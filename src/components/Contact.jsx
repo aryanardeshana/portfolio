@@ -125,29 +125,51 @@ function Contact() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         if (status !== "idle") return;
 
         const nextErrors = Object.fromEntries(
-            Object.keys(values).map((name) => [name, validateField(name, values[name])])
+            Object.keys(values).map((name) => [
+                name,
+                validateField(name, values[name]),
+            ])
         );
+
         setErrors(nextErrors);
-        setTouched({ name: true, email: true, subject: true, message: true });
+        setTouched({
+            name: true,
+            email: true,
+            subject: true,
+            message: true,
+        });
 
         const hasErrors = Object.values(nextErrors).some(Boolean);
+
         if (hasErrors) return;
 
+        console.log("1. Submit clicked");
         setStatus("sending");
 
         try {
-            const response = await fetch("https://portfolio-backend-oj8r.onrender.com/api/Contact", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(values),
-            });
+            console.log("2. Before fetch");
+
+            const response = await fetch(
+                "https://portfolio-backend-cxk7.onrender.com/api/contact",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(values),
+                }
+            );
+
+            console.log("3. After fetch");
+            console.log("Response Status:", response.status);
 
             const data = await response.json();
+
+            console.log("4. Response Data:", data);
 
             if (data.success) {
                 setStatus("sent");
@@ -160,17 +182,19 @@ function Contact() {
                         subject: "",
                         message: "",
                     });
+
                     setTouched({});
                     setErrors({});
                 }, 1800);
-
             } else {
-                alert(data.message);
+                console.log("5. Backend Error:", data);
+
+                alert(data.message || "Failed to send message");
                 setStatus("idle");
             }
-
         } catch (error) {
-            console.error(error);
+            console.error("6. Fetch Error:", error);
+
             alert("Failed to send message");
             setStatus("idle");
         }
