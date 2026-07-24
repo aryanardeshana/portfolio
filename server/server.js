@@ -15,7 +15,7 @@ app.post("/api/contact", async (req, res) => {
         const { name, email, subject, message } = req.body;
 
         // Send Email to Admin
-        const { data, error } = await resend.emails.send({
+        const adminResponse = await resend.emails.send({
             from: "onboarding@resend.dev",
             to: process.env.EMAIL_USER,
             replyTo: email,
@@ -31,51 +31,45 @@ app.post("/api/contact", async (req, res) => {
             `,
         });
 
-        // Check Admin Email Error
-        if (error) {
-            console.error("Admin Email Error:", error);
+        console.log("Admin Response:", adminResponse);
 
+        if (adminResponse.error) {
             return res.status(500).json({
                 success: false,
-                message: error.message,
+                message: adminResponse.error.message,
             });
         }
 
-        // Send Auto Reply to User
-        const { error: autoReplyError } = await resend.emails.send({
+        // Send Auto Reply
+        console.log("Sending Auto Reply To:", email);
+
+        const autoReplyResponse = await resend.emails.send({
             from: "onboarding@resend.dev",
             to: email,
             subject: "Thank You for Contacting Me",
             html: `
-                <div style="font-family: Arial, sans-serif; line-height: 1.6; max-width:600px; margin:auto;">
-                    <h2>Thank You, ${name}! 😊</h2>
+                <h2>Thank You ${name}! 😊</h2>
 
-                    <p>Thank you for contacting me.</p>
+                <p>We have received your message successfully.</p>
 
-                    <p>I have received your message successfully and will review it as soon as possible.</p>
+                <p>We will contact you as soon as possible.</p>
 
-                    <p>I will get back to you shortly.</p>
+                <hr>
 
-                    <hr>
+                <p><strong>Your Subject:</strong> ${subject}</p>
 
-                    <p><strong>Your Subject:</strong> ${subject}</p>
+                <br>
 
-                    <p>Have a wonderful day!</p>
-
-                    <br>
-
-                    <p>Best Regards,</p>
-                    <h3>Aryan Ardeshana</h3>
-                </div>
+                <p>Best Regards,</p>
+                <h3>Aryan Ardeshana</h3>
             `,
         });
 
-        // Check Auto Reply Error
-        if (autoReplyError) {
-            console.error("Auto Reply Error:", autoReplyError);
-        }
+        console.log("Auto Reply Response:", autoReplyResponse);
 
-        console.log("Admin Email Sent:", data);
+        if (autoReplyResponse.error) {
+            console.error("Auto Reply Error:", autoReplyResponse.error);
+        }
 
         return res.status(200).json({
             success: true,
