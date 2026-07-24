@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 require("dotenv").config();
 
 const app = express();
@@ -8,20 +8,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-    },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 app.post("/api/contact", async (req, res) => {
     try {
         const { name, email, subject, message } = req.body;
 
-        await transporter.sendMail({
-            from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
+        const { data, error } = await resend.emails.send({
+            from: "onboarding@resend.dev",
             to: process.env.EMAIL_USER,
             replyTo: email,
             subject: `Portfolio Contact - ${subject}`,
@@ -36,17 +30,28 @@ app.post("/api/contact", async (req, res) => {
             `,
         });
 
-        res.status(200).json({
+        if (error) {
+            console.error("Resend Error:", error);
+
+            return res.status(500).json({
+                success: false,
+                message: error.message,
+            });
+        }
+
+        console.log("Email Sent:", data);
+
+        return res.status(200).json({
             success: true,
             message: "Message Sent Successfully",
         });
 
     } catch (err) {
-        console.error("Email Error:", err);
+        console.error("Server Error:", err);
 
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
-            message: "Failed to send email",
+            message: "Internal Server Error",
         });
     }
 });
