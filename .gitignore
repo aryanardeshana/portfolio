@@ -20,7 +20,6 @@
 
 server/.env
 server/node_modules/
-src/assets/images/
 
 npm-debug.log*
 yarn-debug.log*
