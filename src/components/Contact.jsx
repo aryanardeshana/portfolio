@@ -281,9 +281,27 @@ function Contact() {
                                             {item.title}
                                         </h4>
 
-                                        <p className="text-text-muted">
-                                            {item.value}
-                                        </p>
+                                        {item.title === "Email" ? (
+                                            <a
+                                                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${item.value}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-text-muted hover:text-primary hover:underline transition-colors duration-300"
+                                            >
+                                                {item.value}
+                                            </a>
+                                        ) : item.title === "Phone" ? (
+                                            <a
+                                                href={`tel:${item.value}`}
+                                                className="text-text-muted hover:text-primary hover:underline transition-colors duration-300"
+                                            >
+                                                {item.value}
+                                            </a>
+                                        ) : (
+                                            <p className="text-text-muted">
+                                                {item.value}
+                                            </p>
+                                        )}
                                     </div>
                                 </motion.div>
                             ))}

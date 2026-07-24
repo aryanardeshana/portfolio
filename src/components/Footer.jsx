@@ -12,9 +12,9 @@ const links = [
 ];
 
 const socials = [
-    { icon: FaGithub, href: "https://github.com/yourusername", label: "GitHub" },
-    { icon: FaLinkedin, href: "https://linkedin.com/in/yourusername", label: "LinkedIn" },
-    { icon: FaInstagram, href: "https://instagram.com/yourusername", label: "Instagram" },
+    { icon: FaGithub, href: "https://github.com/aryanardeshana", label: "GitHub" },
+    { icon: FaLinkedin, href: "https://www.linkedin.com/in/aryan-ardeshana-4a1a11374", label: "LinkedIn" },
+    { icon: FaInstagram, href: "https://www.instagram.com/aaryan_ardeshana?igsh=MTRucXc0Z3Bzc2tyag==", label: "Instagram" },
 ];
 
 function Footer() {
@@ -137,9 +137,10 @@ function Footer() {
                         >
                             <h3 className="text-xl font-bold text-primary mb-5">Connect with Me</h3>
 
-
                             <a
-                                href="mailto:aryanpatel5423@gmail.com"
+                                href="https://mail.google.com/mail/?view=cm&fs=1&to=aryanpatel5423@gmail.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="group flex items-center gap-2 text-text-muted hover:text-primary transition-colors duration-300 mb-5 text-sm"
                             >
                                 <FaEnvelope />
@@ -150,7 +151,7 @@ function Footer() {
                             </a>
 
                             <a
-                                href="tel:+919876543210"
+                                href="tel:+916351884365"
                                 className="group flex items-center gap-2 text-text-muted hover:text-primary transition-colors duration-300 mb-5 text-sm"
                             >
                                 <FaPhone />

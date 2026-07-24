@@ -199,7 +199,7 @@ function Hero() {
                         <motion.div variants={item} className="flex gap-6 mt-12 text-3xl text-text-secondary">
 
                             <motion.a
-                                href="https://github.com/"
+                                href="https://github.com/aryanardeshana"
                                 target="_blank"
                                 rel="noreferrer"
                                 whileHover={{ y: -4, scale: 1.15 }}
@@ -209,7 +209,7 @@ function Hero() {
                             </motion.a>
 
                             <motion.a
-                                href="https://linkedin.com/"
+                                href="https://www.linkedin.com/in/aryan-ardeshana-4a1a11374"
                                 target="_blank"
                                 rel="noreferrer"
                                 whileHover={{ y: -4, scale: 1.15 }}
@@ -219,7 +219,9 @@ function Hero() {
                             </motion.a>
 
                             <motion.a
-                                href="mailto:aryanpatel5423@gmail.com"
+                                href="https://mail.google.com/mail/?view=cm&fs=1&to=aryanpatel5423@gmail.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 whileHover={{ y: -4, scale: 1.15 }}
                                 className="hover:text-primary transition-colors duration-300"
                             >
