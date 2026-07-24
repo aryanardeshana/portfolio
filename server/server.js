@@ -14,6 +14,7 @@ app.post("/api/contact", async (req, res) => {
     try {
         const { name, email, subject, message } = req.body;
 
+        // Send Email to Admin
         const { data, error } = await resend.emails.send({
             from: "onboarding@resend.dev",
             to: process.env.EMAIL_USER,
@@ -30,8 +31,9 @@ app.post("/api/contact", async (req, res) => {
             `,
         });
 
+        // Check Admin Email Error
         if (error) {
-            console.error("Resend Error:", error);
+            console.error("Admin Email Error:", error);
 
             return res.status(500).json({
                 success: false,
@@ -39,7 +41,41 @@ app.post("/api/contact", async (req, res) => {
             });
         }
 
-        console.log("Email Sent:", data);
+        // Send Auto Reply to User
+        const { error: autoReplyError } = await resend.emails.send({
+            from: "onboarding@resend.dev",
+            to: email,
+            subject: "Thank You for Contacting Me",
+            html: `
+                <div style="font-family: Arial, sans-serif; line-height: 1.6; max-width:600px; margin:auto;">
+                    <h2>Thank You, ${name}! 😊</h2>
+
+                    <p>Thank you for contacting me.</p>
+
+                    <p>I have received your message successfully and will review it as soon as possible.</p>
+
+                    <p>I will get back to you shortly.</p>
+
+                    <hr>
+
+                    <p><strong>Your Subject:</strong> ${subject}</p>
+
+                    <p>Have a wonderful day!</p>
+
+                    <br>
+
+                    <p>Best Regards,</p>
+                    <h3>Aryan Ardeshana</h3>
+                </div>
+            `,
+        });
+
+        // Check Auto Reply Error
+        if (autoReplyError) {
+            console.error("Auto Reply Error:", autoReplyError);
+        }
+
+        console.log("Admin Email Sent:", data);
 
         return res.status(200).json({
             success: true,
