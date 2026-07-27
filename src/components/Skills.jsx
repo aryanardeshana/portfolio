@@ -132,14 +132,14 @@ function Skills() {
                                 key={category.title}
                                 onClick={() => setActiveIndex(index)}
                                 className={`flex items-center gap-2 px-5 py-3 rounded-full border transition-all duration-300 ${isActive
-                                    ? "bg-primary text-white border-primary shadow-glow"
+                                    ? "bg-primary text-text border-primary shadow-glow"
                                     : "bg-surface text-text-secondary border-border hover:border-primary hover:text-primary"
                                     }`}
                             >
                                 <span className="text-lg">{category.icon}</span>
                                 <span className="font-medium">{category.title}</span>
                                 <span
-                                    className={`text-xs font-semibold rounded-full px-2 py-0.5 ${isActive ? "bg-white/20 text-white" : "bg-card text-text-muted"
+                                    className={`text-xs font-semibold rounded-full px-2 py-0.5 ${isActive ? "bg-text/20 text-text" : "bg-card text-text-muted"
                                         }`}
                                 >
                                     {category.skills.length}
@@ -170,7 +170,7 @@ function Skills() {
                                     >
                                         <span
                                             className={`relative flex items-center justify-center w-11 h-11 rounded-full border-2 shrink-0 transition-all duration-300 ${isActive
-                                                ? "border-primary bg-primary text-white shadow-glow"
+                                                ? "border-primary bg-primary text-text shadow-glow"
                                                 : "border-border bg-surface text-text-muted group-hover:border-primary group-hover:text-primary"
                                                 }`}
                                         >

@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { FaBars, FaXmark } from "react-icons/fa6";
-
+import LinkUnderline from "../constants/LinkUnderline";
 import logo from "../assets/images/logo.png";
+import Button from "../constants/Button";
 
 const navLinks = [
     { id: "home", label: "Home" },
@@ -76,7 +77,7 @@ function Navbar() {
                 }`}
         >
             <div
-                className={`relative z-20 max-w-7xl mx-auto flex items-center justify-between px-6 transition-all duration-300 ${scrolled ? "py-3" : "py-5"
+                className={`relative z-20 max-w-7xl mx-auto flex items-center justify-between px-6 transition-all duration-300 ${scrolled ? "py-2" : "py-2.5"
                     }`}
             >
 
@@ -100,14 +101,15 @@ function Navbar() {
                         const isActive = activeId === id;
                         return (
                             <li key={id} className="relative py-1">
-                                <motion.a
-                                    href={`#${id}`}
-                                    whileHover={{ y: -2 }}
-                                    className={`inline-block transition-colors duration-300 hover:text-primary ${isActive ? "text-primary" : ""
-                                        }`}
-                                >
-                                    {label}
-                                </motion.a>
+                                <motion.div whileHover={{ y: -2 }}>
+                                    <LinkUnderline
+                                        href={`#${id}`}
+                                        showUnderline={false}
+                                        className={isActive ? "text-primary" : ""}
+                                    >
+                                        {label}
+                                    </LinkUnderline>
+                                </motion.div>
                                 {isActive && (
                                     <motion.span
                                         layoutId="nav-underline"
@@ -121,15 +123,12 @@ function Navbar() {
                 </ul>
 
                 {/* Hire Me Button */}
-                <motion.a
+                <Button
                     href="#contact"
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    className="hidden md:block bg-primary hover:bg-primary-hover text-text px-5 py-2 rounded-lg font-semibold shadow-card transition-colors duration-300"
+                    className="hidden md:flex px-5 py-2 rounded-lg text-sm"
                 >
                     Hire Me
-                </motion.a>
+                </Button>
 
                 {/* Mobile Menu Button */}
                 <button
@@ -168,7 +167,7 @@ function Navbar() {
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
                         onClick={() => setMenuOpen(false)}
-                        className="md:hidden fixed inset-0 bg-black/40"
+                        className="md:hidden fixed inset-0 bg-background/40"
                     />
                 )}
             </AnimatePresence>
@@ -191,25 +190,25 @@ function Navbar() {
                         >
                             {navLinks.map(({ id, label }) => (
                                 <motion.li key={id} variants={mobileItem}>
-                                    <a
+                                    <LinkUnderline
                                         href={`#${id}`}
+                                        showUnderline={false}
                                         onClick={() => setMenuOpen(false)}
-                                        className={`transition-colors duration-300 hover:text-primary ${activeId === id ? "text-primary" : ""
-                                            }`}
+                                        className={activeId === id ? "text-primary" : ""}
                                     >
                                         {label}
-                                    </a>
+                                    </LinkUnderline>
                                 </motion.li>
                             ))}
 
                             <motion.li variants={mobileItem}>
-                                <a
+                                <Button
                                     href="#contact"
                                     onClick={() => setMenuOpen(false)}
-                                    className="bg-primary hover:bg-primary-hover text-text px-5 py-2 rounded-lg font-semibold transition-all duration-300"
+                                    className="px-5 py-2 rounded-lg"
                                 >
                                     Hire Me
-                                </a>
+                                </Button>
                             </motion.li>
                         </motion.ul>
                     </motion.div>

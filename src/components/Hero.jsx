@@ -5,6 +5,8 @@ import { SiHtml5, SiCss, SiJavascript, SiReact, SiTailwindcss, SiNodedotjs, SiEx
 import { MdApi } from "react-icons/md";
 import profile from "../assets/images/profile.jpg";
 import resume from "../assets/pdf/Resume.pdf";
+import { CONTACT } from "../constants/contact";
+import Button from "../constants/Button";
 
 const roles = [
     "Full Stack Developer",
@@ -170,27 +172,18 @@ function Hero() {
 
                         <motion.div variants={item} className="flex flex-wrap gap-5 mt-10">
 
-                            <motion.a
-                                href="#contact"
-                                whileHover={{ scale: 1.05, y: -2 }}
-                                whileTap={{ scale: 0.97 }}
-                                transition={{ type: "spring", stiffness: 300 }}
-                                className="bg-primary hover:bg-primary-hover text-text px-8 py-4 rounded-xl font-semibold shadow-card transition-colors duration-300"
-                            >
+                            <Button href="#contact">
                                 Hire Me
-                            </motion.a>
+                            </Button>
 
-                            <motion.a
+                            <Button
                                 href={resume}
-                                download
-                                whileHover={{ scale: 1.05, y: -2 }}
-                                whileTap={{ scale: 0.97 }}
-                                transition={{ type: "spring", stiffness: 300 }}
-                                className="border border-primary text-text hover:bg-primary hover:text-text px-8 py-4 rounded-xl font-semibold flex items-center gap-3 transition-colors duration-300"
+                                download="Resume.pdf"
+                                variant="outline"
                             >
                                 <FaDownload />
                                 Download CV
-                            </motion.a>
+                            </Button>
 
                         </motion.div>
 
@@ -199,7 +192,7 @@ function Hero() {
                         <motion.div variants={item} className="flex gap-6 mt-12 text-3xl text-text-secondary">
 
                             <motion.a
-                                href="https://github.com/aryanardeshana"
+                                href={CONTACT.links.github}
                                 target="_blank"
                                 rel="noreferrer"
                                 whileHover={{ y: -4, scale: 1.15 }}
@@ -209,7 +202,7 @@ function Hero() {
                             </motion.a>
 
                             <motion.a
-                                href="https://www.linkedin.com/in/aryan-ardeshana-4a1a11374"
+                                href={CONTACT.links.linkedin}
                                 target="_blank"
                                 rel="noreferrer"
                                 whileHover={{ y: -4, scale: 1.15 }}
@@ -219,7 +212,7 @@ function Hero() {
                             </motion.a>
 
                             <motion.a
-                                href="https://mail.google.com/mail/?view=cm&fs=1&to=aryanpatel5423@gmail.com"
+                                href={CONTACT.links.email}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 whileHover={{ y: -4, scale: 1.15 }}

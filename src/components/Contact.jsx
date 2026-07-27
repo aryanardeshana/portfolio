@@ -2,6 +2,9 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaLocationDot, FaEnvelope, FaPhone, FaPaperPlane, FaCheck, FaTriangleExclamation, FaGlobe, FaReact, FaBolt, FaPhp, } from "react-icons/fa6";
 import { SiMongodb } from "react-icons/si";
+import { CONTACT } from "../constants/contact";
+import LinkUnderline from "../constants/LinkUnderline";
+import Button from "../constants/Button";
 
 const contactInfo = [
     {
@@ -12,12 +15,16 @@ const contactInfo = [
     {
         icon: <FaEnvelope />,
         title: "Email",
-        value: "aryanpatel5423@gmail.com",
+        value: CONTACT.email,
+        link: CONTACT.links.email,
+        external: true,
     },
     {
         icon: <FaPhone />,
         title: "Phone",
-        value: "+91 63518 84365",
+        value: CONTACT.phone,
+        link: CONTACT.links.phone,
+        external: false,
     },
 ];
 
@@ -281,22 +288,15 @@ function Contact() {
                                             {item.title}
                                         </h4>
 
-                                        {item.title === "Email" ? (
-                                            <a
-                                                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${item.value}`}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="text-text-muted hover:text-primary hover:underline transition-colors duration-300"
+                                        {item.link ? (
+                                            <LinkUnderline
+                                                href={item.link}
+                                                target={item.external ? "_blank" : undefined}
+                                                rel={item.external ? "noopener noreferrer" : undefined}
+                                                className="text-text-muted hover:text-primary"
                                             >
                                                 {item.value}
-                                            </a>
-                                        ) : item.title === "Phone" ? (
-                                            <a
-                                                href={`tel:${item.value}`}
-                                                className="text-text-muted hover:text-primary hover:underline transition-colors duration-300"
-                                            >
-                                                {item.value}
-                                            </a>
+                                            </LinkUnderline>
                                         ) : (
                                             <p className="text-text-muted">
                                                 {item.value}
@@ -538,17 +538,14 @@ function Contact() {
                             </AnimatePresence>
                         </div>
 
-                        <motion.button
+                        <Button
                             type="submit"
                             disabled={status !== "idle"}
-                            whileHover={status === "idle" ? { y: -2 } : {}}
-                            whileTap={status === "idle" ? { scale: 0.98 } : {}}
-                            className={`w-full flex items-center justify-center gap-2 py-3 rounded-lg font-semibold transition-all duration-300 ${status === "sent"
-                                ? "bg-success text-text"
-                                : "bg-primary hover:bg-primary-hover hover:shadow-glow text-text"
-                                } disabled:cursor-not-allowed`}
+                            variant={status === "sent" ? "success" : "primary"}
+                            className="w-full py-3 rounded-lg"
                         >
                             <AnimatePresence mode="wait" initial={false}>
+
                                 {status === "idle" && (
                                     <motion.span
                                         key="idle"
@@ -574,7 +571,11 @@ function Contact() {
                                     >
                                         <motion.span
                                             animate={{ rotate: 360 }}
-                                            transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                                            transition={{
+                                                duration: 0.8,
+                                                repeat: Infinity,
+                                                ease: "linear",
+                                            }}
                                             className="w-4 h-4 border-2 border-text/40 border-t-text rounded-full"
                                         />
                                         Sending...
@@ -594,8 +595,9 @@ function Contact() {
                                         Message Sent
                                     </motion.span>
                                 )}
+
                             </AnimatePresence>
-                        </motion.button>
+                        </Button>
 
                         {/* Bottom Decorative Line */}
                         <div className="mt-auto pt-10">

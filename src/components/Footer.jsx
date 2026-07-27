@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaGithub, FaLinkedin, FaInstagram, FaArrowUp, FaEnvelope, FaPhone, FaArrowRight, } from "react-icons/fa6";
 import logo from "../assets/images/logo.png";
+import { CONTACT } from "../constants/contact";
+import LinkUnderline from "../constants/LinkUnderline";
 
 const links = [
     { name: "Home", href: "#home" },
@@ -12,9 +14,9 @@ const links = [
 ];
 
 const socials = [
-    { icon: FaGithub, href: "https://github.com/aryanardeshana", label: "GitHub" },
-    { icon: FaLinkedin, href: "https://www.linkedin.com/in/aryan-ardeshana-4a1a11374", label: "LinkedIn" },
-    { icon: FaInstagram, href: "https://www.instagram.com/aaryan_ardeshana?igsh=MTRucXc0Z3Bzc2tyag==", label: "Instagram" },
+    { icon: FaGithub, href: CONTACT.links.github, label: "GitHub" },
+    { icon: FaLinkedin, href: CONTACT.links.linkedin, label: "LinkedIn" },
+    { icon: FaInstagram, href: CONTACT.links.instagram, label: "Instagram" },
 ];
 
 function Footer() {
@@ -98,7 +100,9 @@ function Footer() {
                             viewport={{ once: true }}
                             className="mt-6"
                         >
-                            <h3 className="text-xl font-bold text-primary mb-5">Quick Links</h3>
+                            <h3 className="text-xl font-bold text-text mb-5">
+                                Quick <span className="text-primary">Links</span>
+                            </h3>
                             <ul className="space-y-3">
                                 {links.map((link, i) => {
                                     return (
@@ -109,19 +113,9 @@ function Footer() {
                                             transition={{ delay: 0.2 + i * 0.08, duration: 0.4 }}
                                             viewport={{ once: true }}
                                         >
-                                            <a
-                                                href={link.href}
-                                                className="group relative inline-flex items-center gap-2 text-text-muted hover:text-primary transition-colors duration-300"
-                                            >
-                                                <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                                                    <FaArrowRight className="text-xs" />
-                                                </span>
-
-                                                <span className="relative">
-                                                    {link.name}
-                                                    <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                                                </span>
-                                            </a>
+                                            <LinkUnderline href={link.href}>
+                                                {link.name}
+                                            </LinkUnderline>
                                         </motion.li>
                                     );
                                 })}
@@ -135,31 +129,30 @@ function Footer() {
                             viewport={{ once: true }}
                             className="mt-6"
                         >
-                            <h3 className="text-xl font-bold text-primary mb-5">Connect with Me</h3>
+                            <h3 className="text-xl font-bold text-text mb-5">
+                                Connect with <span className="text-primary">Me</span>
+                            </h3>
 
-                            <a
-                                href="https://mail.google.com/mail/?view=cm&fs=1&to=aryanpatel5423@gmail.com"
+                            <LinkUnderline
+                                href={CONTACT.links.email}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group flex items-center gap-2 text-text-muted hover:text-primary transition-colors duration-300 mb-5 text-sm"
+                                className="flex items-center gap-2 mb-5 text-sm"
                             >
-                                <FaEnvelope />
-                                <span className="relative">
-                                    aryanpatel5423@gmail.com
-                                    <span className="absolute left-0 -bottom-1 h-[1.5px] w-0 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                                </span>
-                            </a>
-
-                            <a
-                                href="tel:+916351884365"
-                                className="group flex items-center gap-2 text-text-muted hover:text-primary transition-colors duration-300 mb-5 text-sm"
+                                <>
+                                    <FaEnvelope />
+                                    {CONTACT.email}
+                                </>
+                            </LinkUnderline>
+                            <LinkUnderline
+                                href={CONTACT.links.phone}
+                                className="flex items-center gap-2 mb-5 text-sm"
                             >
-                                <FaPhone />
-                                <span className="relative">
-                                    +91 63518 84365
-                                    <span className="absolute left-0 -bottom-1 h-[1.5px] w-0 bg-primary transition-all duration-300 group-hover:w-full"></span>
-                                </span>
-                            </a>
+                                <>
+                                    <FaPhone />
+                                    {CONTACT.phone}
+                                </>
+                            </LinkUnderline>
 
                             <div className="flex gap-4">
                                 {socials.map((social, i) => {
@@ -177,7 +170,7 @@ function Footer() {
                                             viewport={{ once: true }}
                                             whileHover={{ y: -6, scale: 1.1, rotate: [0, -8, 8, 0] }}
                                             whileTap={{ scale: 0.9 }}
-                                            className="w-12 h-12 rounded-xl bg-card border border-border flex items-center justify-center text-lg hover:bg-primary hover:text-white hover:border-primary hover:shadow-glow transition-all duration-300"
+                                            className="w-12 h-12 rounded-xl bg-card border border-border flex items-center justify-center text-lg hover:bg-primary hover:text-text hover:border-primary hover:shadow-glow transition-all duration-300"
                                         >
                                             <Icon />
                                         </motion.a>
@@ -203,19 +196,24 @@ function Footer() {
 
             <AnimatePresence>
                 {showFloatingTop && (
-                    <motion.a
-                        href="#home"
+                    <motion.button
+                        onClick={() => {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: "smooth",
+                            });
+                        }}
                         initial={{ opacity: 0, scale: 0.6, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.6, y: 20 }}
                         whileHover={{ y: -5, scale: 1.08 }}
                         whileTap={{ scale: 0.9 }}
                         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                        className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-glow hover:bg-primary-hover transition-colors duration-300"
+                        className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-primary text-text flex items-center justify-center shadow-glow hover:bg-primary-hover transition-colors duration-300"
                         aria-label="Back to top"
                     >
                         <FaArrowUp />
-                    </motion.a>
+                    </motion.button>
                 )}
             </AnimatePresence>
         </>
