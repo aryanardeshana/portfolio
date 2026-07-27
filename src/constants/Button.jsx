@@ -2,12 +2,14 @@ import { motion } from "framer-motion";
 
 function Button({
     href,
+    type = "button",
     children,
     className = "",
     target,
     rel,
     onClick,
     download = false,
+    disabled = false,
     variant = "primary",
 }) {
     const base =
@@ -19,8 +21,30 @@ function Button({
 
         outline:
             "border border-primary text-text hover:bg-primary hover:text-text",
+
+        success:
+            "bg-success text-text shadow-card",
     };
 
+    // Button
+    if (!href) {
+        return (
+            <motion.button
+                type={type}
+                onClick={onClick}
+                disabled={disabled}
+                whileHover={!disabled ? { scale: 1.05, y: -2 } : {}}
+                whileTap={!disabled ? { scale: 0.97 } : {}}
+                transition={{ type: "spring", stiffness: 300 }}
+                className={`${base} ${variants[variant]} ${className} ${disabled ? "opacity-70 cursor-not-allowed" : ""
+                    }`}
+            >
+                {children}
+            </motion.button>
+        );
+    }
+
+    // Link
     return (
         <motion.a
             href={href}

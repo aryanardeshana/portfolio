@@ -1,5 +1,7 @@
 {
   "projects": {
     "default": "portfolio-e357a"
-  }
+  },
+  "targets": {},
+  "etags": {}
 }
