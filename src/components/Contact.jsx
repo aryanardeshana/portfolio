@@ -537,67 +537,12 @@ function Contact() {
                                 )}
                             </AnimatePresence>
                         </div>
-
-                        <Button
+                        <button
                             type="submit"
-                            disabled={status !== "idle"}
-                            variant={status === "sent" ? "success" : "primary"}
-                            className="w-full py-3 rounded-lg"
+                            className="w-full py-3 rounded-lg bg-primary text-white"
                         >
-                            <AnimatePresence mode="wait" initial={false}>
-
-                                {status === "idle" && (
-                                    <motion.span
-                                        key="idle"
-                                        initial={{ opacity: 0, y: 6 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -6 }}
-                                        transition={{ duration: 0.2 }}
-                                        className="flex items-center gap-2"
-                                    >
-                                        <FaPaperPlane />
-                                        Send Message
-                                    </motion.span>
-                                )}
-
-                                {status === "sending" && (
-                                    <motion.span
-                                        key="sending"
-                                        initial={{ opacity: 0, y: 6 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -6 }}
-                                        transition={{ duration: 0.2 }}
-                                        className="flex items-center gap-2"
-                                    >
-                                        <motion.span
-                                            animate={{ rotate: 360 }}
-                                            transition={{
-                                                duration: 0.8,
-                                                repeat: Infinity,
-                                                ease: "linear",
-                                            }}
-                                            className="w-4 h-4 border-2 border-text/40 border-t-text rounded-full"
-                                        />
-                                        Sending...
-                                    </motion.span>
-                                )}
-
-                                {status === "sent" && (
-                                    <motion.span
-                                        key="sent"
-                                        initial={{ opacity: 0, y: 6 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -6 }}
-                                        transition={{ duration: 0.2 }}
-                                        className="flex items-center gap-2"
-                                    >
-                                        <FaCheck />
-                                        Message Sent
-                                    </motion.span>
-                                )}
-
-                            </AnimatePresence>
-                        </Button>
+                            Send Message
+                        </button>
 
                         {/* Bottom Decorative Line */}
                         <div className="mt-auto pt-10">
