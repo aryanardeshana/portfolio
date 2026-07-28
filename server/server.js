@@ -8,13 +8,24 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Nodemailer Transporter
+// Gmail SMTP Transporter
 const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
     },
+});
+
+// SMTP Connection Check
+transporter.verify((error, success) => {
+    if (error) {
+        console.error("SMTP Error:", error);
+    } else {
+        console.log("✅ SMTP Server Ready");
+    }
 });
 
 app.post("/api/contact", async (req, res) => {
@@ -22,7 +33,7 @@ app.post("/api/contact", async (req, res) => {
         const { name, email, subject, message } = req.body;
 
         await transporter.sendMail({
-            from: process.env.EMAIL_USER,
+            from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
             to: process.env.EMAIL_USER,
             replyTo: email,
             subject: `Portfolio Contact - ${subject}`,
@@ -43,11 +54,11 @@ app.post("/api/contact", async (req, res) => {
         });
 
     } catch (err) {
-        console.error("Server Error:", err);
+        console.error("Mail Error:", err);
 
         return res.status(500).json({
             success: false,
-            message: "Internal Server Error",
+            message: err.message,
         });
     }
 });
@@ -59,5 +70,5 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-    console.log(`Server Running on Port ${PORT}`);
+    console.log(`🚀 Server Running on Port ${PORT}`);
 });
