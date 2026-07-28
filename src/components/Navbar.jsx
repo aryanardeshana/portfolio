@@ -26,6 +26,18 @@ const mobileItem = {
 };
 
 function Navbar() {
+    const scrollToSection = (id) => {
+        const section = document.getElementById(id);
+
+        if (section) {
+            section.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+            });
+        }
+
+        setMenuOpen(false);
+    };
     const [menuOpen, setMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [activeId, setActiveId] = useState("home");
@@ -82,18 +94,19 @@ function Navbar() {
             >
 
                 {/* Logo */}
-                <motion.a
-                    href="#home"
+                <motion.button
+                    type="button"
+                    onClick={() => scrollToSection("home")}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="cursor-pointer shrink-0"
+                    className="cursor-pointer shrink-0 bg-transparent border-0 p-0"
                 >
                     <img
                         src={logo}
                         alt="Aryan Ardeshana - Full Stack Developer"
                         className="h-14 md:h-16 w-auto object-contain -my-3 md:-my-4"
                     />
-                </motion.a>
+                </motion.button>
 
                 {/* Desktop Menu */}
                 <ul className="hidden md:flex items-center gap-8 text-text font-medium">
@@ -103,7 +116,7 @@ function Navbar() {
                             <li key={id} className="relative py-1">
                                 <motion.div whileHover={{ y: -2 }}>
                                     <LinkUnderline
-                                        href={`#${id}`}
+                                        onClick={() => scrollToSection(id)}
                                         showUnderline={false}
                                         className={isActive ? "text-primary" : ""}
                                     >
@@ -124,7 +137,7 @@ function Navbar() {
 
                 {/* Hire Me Button */}
                 <Button
-                    href="#contact"
+                    onClick={() => scrollToSection("contact")}
                     className="hidden md:flex px-5 py-2 rounded-lg text-sm"
                 >
                     Hire Me
@@ -191,9 +204,8 @@ function Navbar() {
                             {navLinks.map(({ id, label }) => (
                                 <motion.li key={id} variants={mobileItem}>
                                     <LinkUnderline
-                                        href={`#${id}`}
+                                        onClick={() => scrollToSection(id)}
                                         showUnderline={false}
-                                        onClick={() => setMenuOpen(false)}
                                         className={activeId === id ? "text-primary" : ""}
                                     >
                                         {label}
@@ -203,9 +215,7 @@ function Navbar() {
 
                             <motion.li variants={mobileItem}>
                                 <Button
-                                    href="#contact"
-                                    onClick={() => setMenuOpen(false)}
-                                    className="px-5 py-2 rounded-lg"
+                                    onClick={() => scrollToSection("contact")}
                                 >
                                     Hire Me
                                 </Button>

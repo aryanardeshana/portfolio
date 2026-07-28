@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { Resend } = require("resend");
+const nodemailer = require("nodemailer");
 require("dotenv").config();
 
 const app = express();
@@ -8,14 +8,21 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Nodemailer Transporter
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+    },
+});
 
 app.post("/api/contact", async (req, res) => {
     try {
         const { name, email, subject, message } = req.body;
 
-        const adminResponse = await resend.emails.send({
-            from: "onboarding@resend.dev",
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
             to: process.env.EMAIL_USER,
             replyTo: email,
             subject: `Portfolio Contact - ${subject}`,
@@ -29,15 +36,6 @@ app.post("/api/contact", async (req, res) => {
                 <p>${message}</p>
             `,
         });
-
-        console.log("Admin Response:", adminResponse);
-
-        if (adminResponse.error) {
-            return res.status(500).json({
-                success: false,
-                message: adminResponse.error.message,
-            });
-        }
 
         return res.status(200).json({
             success: true,

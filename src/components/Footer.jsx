@@ -6,11 +6,11 @@ import { CONTACT } from "../constants/contact";
 import LinkUnderline from "../constants/LinkUnderline";
 
 const links = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", id: "home" },
+    { name: "About", id: "about" },
+    { name: "Skills", id: "skills" },
+    { name: "Projects", id: "projects" },
+    { name: "Contact", id: "contact" },
 ];
 
 const socials = [
@@ -20,6 +20,16 @@ const socials = [
 ];
 
 function Footer() {
+    const scrollToSection = (id) => {
+        const section = document.getElementById(id);
+
+        if (section) {
+            section.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+            });
+        }
+    };
     const [showFloatingTop, setShowFloatingTop] = useState(false);
 
     useEffect(() => {
@@ -74,18 +84,19 @@ function Footer() {
                             viewport={{ once: true }}
                             className="md:col-span-2"
                         >
-                            <motion.a
-                                href="#home"
+                            <motion.button
+                                type="button"
+                                onClick={() => scrollToSection("home")}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="inline-block"
+                                className="inline-block bg-transparent border-0 p-0 cursor-pointer"
                             >
                                 <img
                                     src={logo}
                                     alt="Aryan Ardeshana - Full Stack Developer"
                                     className="w-32 h-32 md:w-36 md:h-36 object-contain rounded-2xl transition-all duration-300 hover:drop-shadow-[0_0_25px_rgba(34,211,238,0.4)]"
                                 />
-                            </motion.a>
+                            </motion.button>
 
                             <p className="text-text-muted mt-4 leading-7 max-w-md">
                                 Full-Stack Developer specializing in React.js, Node.js, Express.js, MongoDB, PHP, MySQL, JavaScript, and Tailwind CSS. Passionate about creating responsive, scalable, and user-friendly web applications with clean architecture, secure REST APIs, and modern UI/UX while continuously learning and improving my development skills.
@@ -110,10 +121,15 @@ function Footer() {
                                             key={link.name}
                                             initial={{ opacity: 0, x: -15 }}
                                             whileInView={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: 0.2 + i * 0.08, duration: 0.4 }}
+                                            transition={{
+                                                delay: 0.2 + i * 0.08,
+                                                duration: 0.4,
+                                            }}
                                             viewport={{ once: true }}
                                         >
-                                            <LinkUnderline href={link.href}>
+                                            <LinkUnderline
+                                                onClick={() => scrollToSection(link.id)}
+                                            >
                                                 {link.name}
                                             </LinkUnderline>
                                         </motion.li>

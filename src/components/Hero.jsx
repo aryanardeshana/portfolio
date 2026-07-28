@@ -169,10 +169,16 @@ function Hero() {
                         </motion.p>
 
                         {/* Buttons */}
-
                         <motion.div variants={item} className="flex flex-wrap gap-5 mt-10">
 
-                            <Button href="#contact">
+                            <Button
+                                onClick={() => {
+                                    document.getElementById("contact")?.scrollIntoView({
+                                        behavior: "smooth",
+                                        block: "start",
+                                    });
+                                }}
+                            >
                                 Hire Me
                             </Button>
 
