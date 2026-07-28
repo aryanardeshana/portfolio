@@ -160,6 +160,8 @@ function Contact() {
         try {
             console.log("2. Before fetch");
 
+            console.log("Sending:", values);
+
             const response = await fetch(
                 "https://portfolio-backend-cxk7.onrender.com/api/contact",
                 {
@@ -539,10 +541,34 @@ function Contact() {
                         </div>
                         <button
                             type="submit"
-                            className="w-full py-3 rounded-lg bg-primary text-white"
+                            disabled={status === "sending"}
+                            className="w-full py-3 rounded-lg bg-primary text-text font-semibold flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300"
                         >
-                            Send Message
+                            {status === "sending" ? (
+                                <>
+                                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                    Sending...
+                                </>
+                            ) : (
+                                <>
+                                    <FaPaperPlane />
+                                    Send Message
+                                </>
+                            )}
                         </button>
+                        <AnimatePresence>
+                            {status === "sent" && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: 10 }}
+                                    className="mt-4 flex items-center justify-center gap-2 rounded-lg bg-success/10 border border-success text-success py-3"
+                                >
+                                    <FaCheck />
+                                    Thank you! Your message has been sent successfully.
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
 
                         {/* Bottom Decorative Line */}
                         <div className="mt-auto pt-10">
