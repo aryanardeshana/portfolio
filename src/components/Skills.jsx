@@ -24,6 +24,7 @@ import {
     SiGithub,
     SiPostman,
     SiVscodium,
+    SiFirebase,
 } from "react-icons/si";
 
 const skillCategories = [
@@ -46,6 +47,7 @@ const skillCategories = [
             { name: "Node.js", icon: <SiNodedotjs /> },
             { name: "Express.js", icon: <SiExpress /> },
             { name: "PHP", icon: <SiPhp /> },
+            { name: "Firebase", icon: <SiFirebase /> },
         ],
     },
     {

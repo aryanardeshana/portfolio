@@ -382,7 +382,7 @@ function Contact() {
                                     <p className="text-sm text-text-muted flex items-center gap-2">
                                         <FaBolt className="text-primary" />
                                         Usually replies within
-                                        <span className="text-primary font-semibold">5 hours</span>
+                                        <span className="text-primary font-semibold">24 hours</span>
                                     </p>
                                 </div>
                             </motion.div>

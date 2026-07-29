@@ -153,20 +153,24 @@ function Footer() {
                                 href={CONTACT.links.email}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-2 mb-5 text-sm"
+                                className="mb-5 text-sm w-full"
                             >
                                 <>
-                                    <FaEnvelope />
-                                    {CONTACT.email}
+                                    <FaEnvelope className="mt-1 shrink-0" />
+                                    <span className="break-all text-xs sm:text-sm">
+                                        {CONTACT.email}
+                                    </span>
                                 </>
                             </LinkUnderline>
                             <LinkUnderline
                                 href={CONTACT.links.phone}
-                                className="flex items-center gap-2 mb-5 text-sm"
+                                className="mb-5 text-sm w-full"
                             >
                                 <>
-                                    <FaPhone />
-                                    {CONTACT.phone}
+                                    <FaPhone className="mt-1 shrink-0" />
+                                    <span className="text-xs sm:text-sm">
+                                        {CONTACT.phone}
+                                    </span>
                                 </>
                             </LinkUnderline>
 
