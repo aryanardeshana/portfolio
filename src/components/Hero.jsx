@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaGithub, FaLinkedin, FaEnvelope, FaDownload } from "react-icons/fa6";
 import { SiHtml5, SiCss, SiJavascript, SiReact, SiTailwindcss, SiNodedotjs, SiExpress, SiPhp, SiMongodb, SiMysql, SiGit, SiGithub, SiPostman } from "react-icons/si";
 import { MdApi } from "react-icons/md";
-import profile from "../assets/images/profile.jpg";
+import profile from "../assets/images/profile.webp";
 import resume from "../assets/pdf/Resume.pdf";
 import { CONTACT } from "../constants/contact";
 import Button from "../constants/Button";
