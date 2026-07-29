@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { FaBars, FaXmark } from "react-icons/fa6";
 import LinkUnderline from "../constants/LinkUnderline";
-import logo from "../assets/images/logo.png";
+import logo from "../assets/images/logo.webp";
 import Button from "../constants/Button";
 
 const navLinks = [

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaGithub, FaLinkedin, FaInstagram, FaArrowUp, FaEnvelope, FaPhone, FaArrowRight, } from "react-icons/fa6";
-import logo from "../assets/images/logo.png";
+import logo from "../assets/images/logo.webp";
 import { CONTACT } from "../constants/contact";
 import LinkUnderline from "../constants/LinkUnderline";
 
