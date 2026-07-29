@@ -22,9 +22,6 @@
 server/.env
 server/node_modules/
 
-# Ignore API key screenshot
-src/assets/images/API key.png
-
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
