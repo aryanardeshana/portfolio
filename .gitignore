@@ -21,6 +21,7 @@
 # Backend
 server/.env
 server/node_modules/
+/server/send-mail.php
 
 npm-debug.log*
 yarn-debug.log*

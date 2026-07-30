@@ -163,7 +163,7 @@ function Contact() {
             console.log("Sending:", values);
 
             const response = await fetch(
-                "https://portfolio-backend-cxk7.onrender.com/api/contact",
+                "https://madhavconstructions.com/portfolio-api/sendmail.php",
                 {
                     method: "POST",
                     headers: {
