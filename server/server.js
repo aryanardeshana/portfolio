@@ -37,7 +37,7 @@ app.post("/api/contact", async (req, res) => {
         // Send Email
         const { data, error } = await resend.emails.send({
             from: "Portfolio Contact <onboarding@resend.dev>",
-            to: process.env.EMAIL_USER,
+            to: "delivered@resend.dev",
             replyTo: email,
             subject: `Portfolio Contact - ${subject}`,
             html: `
