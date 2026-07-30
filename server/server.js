@@ -14,8 +14,8 @@ app.use(express.json());
 // MongoDB Connect
 mongoose
     .connect(process.env.MONGODB_URI)
-    .then(() => console.log("✅ MongoDB Connected"))
-    .catch((err) => console.log("❌ MongoDB Error:", err));
+    .then(() => console.log("MongoDB Connected"))
+    .catch((err) => console.log("MongoDB Error:", err));
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
