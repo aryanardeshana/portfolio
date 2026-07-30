@@ -163,7 +163,7 @@ function Contact() {
             console.log("Sending:", values);
 
             const response = await fetch(
-                "https://madhavconstructions.com/portfolio-api/sendmail.php",
+                "https://madhavconstructions.com/portfolio-api/send-mail.php",
                 {
                     method: "POST",
                     headers: {
