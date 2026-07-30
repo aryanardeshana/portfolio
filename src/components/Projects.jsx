@@ -2,35 +2,17 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import Button from "../constants/Button";
+import onlineClipboardImg from "../assets/images/onlineclipboard.webp";
+import kingTechnologyImg from "../assets/images/kingtechnology.webp";
+import jrBuildingImg from "../assets/images/jrbuilding.webp";
+import rssPharmaImg from "../assets/images/rsspharma.webp";
+import kingTextileImg from "../assets/images/kingtextile.webp";
+import madhavImg from "../assets/images/madhavconstructions.webp";
 
 const projects = [
     {
-        title: "Online Clipboard",
-        image: "https://placehold.co/600x400/111827/06b6d4?text=Online+Clipboard",
-        description:
-            "A secure online clipboard application for saving and accessing notes from anywhere.",
-        tech: ["React", "Node.js", "MongoDB", "Express.js", "REST API"],
-        live: "https://online-clipboard.in/",
-    },
-    {
-        title: "King Technology",
-        image: "https://placehold.co/600x400/111827/06b6d4?text=King+Technology",
-        description:
-            "A responsive corporate website with modern UI and admin management features.",
-        tech: ["Tailwind CSS", "JavaScript", "PHP", "MySQL"],
-        live: "https://kingtechnology.in/",
-    },
-    {
-        title: "JR Building",
-        image: "https://placehold.co/600x400/111827/06b6d4?text=JR+Building",
-        description:
-            "Construction company website with responsive design and service showcase.",
-        tech: ["React.js", "Node.js", "Express.js"],
-        live: "https://jrbuilding.in/",
-    },
-    {
         title: "RSS Pharma",
-        image: "https://placehold.co/600x400/111827/06b6d4?text=RSS+Pharma",
+        image: rssPharmaImg,
         description:
             "Professional pharmaceutical company website with responsive layout.",
         tech: ["Tailwind CSS", "JavaScript", "PHP", "MySQL"],
@@ -38,15 +20,39 @@ const projects = [
     },
     {
         title: "King Textile",
-        image: "https://placehold.co/600x400/111827/06b6d4?text=King+Textile",
+        image: kingTextileImg,
         description:
             "Modern textile business website showcasing products and company profile.",
         tech: ["Tailwind CSS", "JavaScript", "PHP", "MySQL"],
         live: "https://kingtextile.in/",
     },
     {
+        title: "King Technology",
+        image: kingTechnologyImg,
+        description:
+            "A responsive corporate website with modern UI and admin management features.",
+        tech: ["Tailwind CSS", "JavaScript", "PHP", "MySQL"],
+        live: "https://kingtechnology.in/",
+    },
+    {
+        title: "Online Clipboard",
+        image: onlineClipboardImg,
+        description:
+            "A secure online clipboard application for saving and accessing notes from anywhere.",
+        tech: ["React", "Node.js", "MongoDB", "Express.js", "REST API"],
+        live: "https://online-clipboard.in/",
+    },
+    {
+        title: "JR Building",
+        image: jrBuildingImg,
+        description:
+            "Construction company website with responsive design and service showcase.",
+        tech: ["React.js", "Node.js", "Express.js"],
+        live: "https://jrbuilding.in/",
+    },
+    {
         title: "Madhav Constructions",
-        image: "https://placehold.co/600x400/111827/06b6d4?text=Madhav+Constructions",
+        image: madhavImg,
         description:
             "Construction company website with modern UI, responsive design, services, contact forms and admin panel.",
         tech: ["React.js", "Node.js", "Express.js"],
@@ -122,13 +128,12 @@ function Projects() {
                             transition={{ type: "spring", stiffness: 260, damping: 20 }}
                             className="group relative bg-surface border border-border rounded-2xl overflow-hidden shadow-card hover:border-primary hover:shadow-glow transition-colors duration-300 flex flex-col"
                         >
-                            <div className="relative overflow-hidden">
+                            <div className="relative h-64 bg-[#111827] flex items-center justify-center overflow-hidden">
                                 <img
                                     src={project.image}
                                     alt={project.title}
-                                    className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             </div>
 
                             <div className="p-6 flex flex-col flex-1">
